@@ -106,7 +106,7 @@ Un server MCP (Model Context Protocol) per la gestione completa di Google Ads tr
 
 ```bash
 # Clona il repository
-git clone <repo-url>
+git clone https://github.com/matteomilonekr/google-ads-manager.git
 cd google-ads-manager
 
 # Installa con uv (consigliato)
@@ -121,9 +121,78 @@ uv sync --extra dev
 pip install -e ".[dev]"
 ```
 
+## Ottenere le Credenziali Google Ads API
+
+Per utilizzare questo server MCP servono 4 credenziali obbligatorie. Segui questa guida passo-passo per ottenerle.
+
+### 1. Developer Token
+
+Il developer token identifica la tua applicazione verso le Google Ads API.
+
+1. Accedi a [Google Ads](https://ads.google.com) con un account manager (MCC)
+2. Vai su **Strumenti e impostazioni** > **Centro API**
+3. Se non hai ancora un token, richiedilo compilando il form
+4. Copia il **Developer Token** (es. `aBcDeFgHiJkLmNoPqR`)
+
+> **Nota:** per uso di test puoi usare un token con accesso "Test Account". Per la produzione serve l'approvazione di Google.
+
+### 2. OAuth2 Client ID e Client Secret
+
+Queste credenziali autenticano la tua app con Google OAuth2.
+
+1. Vai su [Google Cloud Console — Credentials](https://console.cloud.google.com/apis/credentials)
+2. Seleziona o crea un progetto
+3. Abilita la **Google Ads API**:
+   - Vai su [API Library](https://console.cloud.google.com/apis/library)
+   - Cerca "Google Ads API" e clicca **Abilita**
+4. Crea le credenziali OAuth:
+   - Clicca **Crea credenziali** > **ID client OAuth**
+   - Tipo applicazione: **App desktop**
+   - Dai un nome (es. "Google Ads MCP")
+   - Clicca **Crea**
+5. Copia **Client ID** e **Client Secret**
+
+### 3. Refresh Token
+
+Il refresh token autorizza l'accesso al tuo account Google Ads. Questo progetto include uno script per generarlo automaticamente.
+
+```bash
+# Dalla cartella del progetto
+GOOGLE_ADS_CLIENT_ID="il_tuo_client_id" \
+GOOGLE_ADS_CLIENT_SECRET="il_tuo_client_secret" \
+  uv run python scripts/get_refresh_token.py
+```
+
+Lo script:
+1. Avvia un server locale sulla porta 8085
+2. Apre il browser per il login Google
+3. Riceve il callback di autorizzazione
+4. Scambia il codice per un refresh token
+5. Stampa il refresh token da copiare nella configurazione
+
+> **Nota:** se il browser non si apre, copia manualmente l'URL stampato nel terminale. Fai login con l'account Google che ha accesso all'account Google Ads che vuoi gestire.
+
+### 4. Login Customer ID (opzionale)
+
+Necessario solo se usi un account manager (MCC) per gestire altri account.
+
+1. Accedi a [Google Ads](https://ads.google.com) con l'account manager
+2. L'ID cliente e visibile in alto a destra (es. `123-456-7890`)
+3. Rimuovi i trattini per ottenere il formato numerico: `1234567890`
+
+### Riepilogo Credenziali
+
+| Variabile | Dove trovarla | Esempio |
+|-----------|---------------|---------|
+| `GOOGLE_ADS_DEVELOPER_TOKEN` | Google Ads > Strumenti > Centro API | `aBcDeFgHiJkLmNoPqR` |
+| `GOOGLE_ADS_CLIENT_ID` | Google Cloud Console > Credentials | `123456789-abc.apps.googleusercontent.com` |
+| `GOOGLE_ADS_CLIENT_SECRET` | Google Cloud Console > Credentials | `GOCSPX-AbCdEfGhIjKlMnOpQr` |
+| `GOOGLE_ADS_REFRESH_TOKEN` | Script `scripts/get_refresh_token.py` | `1//0aAbBcCdDeFfGgHhIi...` |
+| `GOOGLE_ADS_LOGIN_CUSTOMER_ID` | Google Ads (solo per MCC) | `1234567890` |
+
 ## Configurazione
 
-Imposta le seguenti variabili d'ambiente (o aggiungile a un file `.env`):
+Imposta le credenziali come variabili d'ambiente o in un file `.env`:
 
 ```bash
 # Obbligatorie
@@ -146,7 +215,7 @@ uv run python -m google_ads_mcp.server
 
 ### Configurazione Claude Desktop / Claude Code
 
-Aggiungi alle impostazioni MCP:
+Aggiungi alle impostazioni MCP (`~/.claude.json` per Claude Code, o nelle impostazioni di Claude Desktop):
 
 ```json
 {
