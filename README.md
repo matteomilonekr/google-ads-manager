@@ -1,128 +1,129 @@
 # Google Ads MCP Server
 
-An MCP (Model Context Protocol) server that provides full Google Ads campaign management through Claude and other MCP-compatible AI assistants. Built with [FastMCP](https://github.com/jlowin/fastmcp) and the official [Google Ads API](https://developers.google.com/google-ads/api/docs/start).
+Un server MCP (Model Context Protocol) per la gestione completa di Google Ads tramite Claude e altri assistenti AI compatibili con MCP. Costruito con [FastMCP](https://github.com/jlowin/fastmcp) e le [Google Ads API](https://developers.google.com/google-ads/api/docs/start) ufficiali.
 
-## Features
+## Funzionalita
 
-**54 tools** covering the complete Google Ads workflow — read performance data, create campaigns, manage keywords, upload conversions, and more.
+**55 tool** che coprono l'intero workflow Google Ads: lettura dati performance, creazione campagne, gestione keyword, upload conversioni e molto altro.
 
-### Read Tools (28)
+### Tool di Lettura (29)
 
-| Tool | Description |
+| Tool | Descrizione |
 |------|-------------|
-| `get_account_overview` | Account-level performance summary |
-| `list_campaigns` | List campaigns with status/type filters |
-| `get_campaign_performance` | Campaign metrics over a date range |
-| `list_ad_groups` | List ad groups with campaign/status filters |
-| `get_ad_group_performance` | Ad group metrics over a date range |
-| `gads_list_ad_group_ads` | List ads with creative details, performance, and policy status |
-| `list_keywords` | List keywords with match types and bids |
-| `get_keyword_performance` | Keyword metrics over a date range |
-| `search_terms_report` | Search terms triggering your ads |
-| `gads_list_labels` | Account labels |
-| `gads_list_campaign_labels` | Campaign-label associations |
-| `gads_list_ad_group_labels` | Ad group-label associations |
-| `gads_list_ad_group_ad_labels` | Ad-label associations |
-| `gads_list_ad_group_criterion_labels` | Criterion-label associations |
-| `gads_list_customer_labels` | Customer-label associations |
-| `gads_list_audiences` | Audience segments and performance |
-| `gads_list_user_interests` | User interest categories |
-| `gads_list_campaign_budgets` | Budget configuration and spend |
-| `gads_get_bidding_strategies` | Campaign bidding strategies |
-| `gads_get_ad_group_bidding_strategies` | Ad group bidding strategies |
-| `gads_list_change_history` | Change history for account entities |
-| `gads_list_customer_clients` | Customer client hierarchy |
-| `gads_list_accessible_customers` | Accessible customer accounts |
-| `gads_geographic_view` | Location-based performance data |
-| `gads_shopping_performance_view` | Product-level shopping performance |
-| `gads_display_keyword_view` | Display keyword targeting performance |
-| `gads_topic_view` | Topic targeting performance |
-| `gads_user_location_view` | User physical location performance |
-| `gads_click_view` | Click-level data with GCLID and device info |
-| `gads_generate_keyword_ideas` | Keyword ideas from seeds or URL |
-| `gads_execute_gaql` | Execute custom GAQL queries |
+| `get_account_overview` | Riepilogo performance a livello account |
+| `list_campaigns` | Lista campagne con filtri stato/tipo |
+| `get_campaign_performance` | Metriche campagne su intervallo date |
+| `list_ad_groups` | Lista gruppi annunci con filtri campagna/stato |
+| `get_ad_group_performance` | Metriche gruppi annunci su intervallo date |
+| `gads_list_ad_group_ads` | Lista annunci con dettagli creativi, performance e stato policy |
+| `list_keywords` | Lista keyword con tipi di corrispondenza e offerte |
+| `get_keyword_performance` | Metriche keyword su intervallo date |
+| `search_terms_report` | Termini di ricerca che attivano gli annunci |
+| `gads_list_labels` | Etichette dell'account |
+| `gads_list_campaign_labels` | Associazioni campagna-etichetta |
+| `gads_list_ad_group_labels` | Associazioni gruppo annunci-etichetta |
+| `gads_list_ad_group_ad_labels` | Associazioni annuncio-etichetta |
+| `gads_list_ad_group_criterion_labels` | Associazioni criterio-etichetta |
+| `gads_list_customer_labels` | Associazioni cliente-etichetta |
+| `gads_list_audiences` | Segmenti di pubblico e performance |
+| `gads_list_user_interests` | Categorie di interessi utente |
+| `gads_list_campaign_budgets` | Configurazione e spesa budget |
+| `gads_get_bidding_strategies` | Strategie di offerta campagne |
+| `gads_get_ad_group_bidding_strategies` | Strategie di offerta gruppi annunci |
+| `gads_list_change_history` | Cronologia modifiche entita account |
+| `gads_list_customer_clients` | Gerarchia account cliente |
+| `gads_list_accessible_customers` | Account cliente accessibili |
+| `gads_list_merchant_center_links` | Account Merchant Center collegati |
+| `gads_geographic_view` | Dati performance per localita |
+| `gads_shopping_performance_view` | Performance Shopping a livello prodotto |
+| `gads_display_keyword_view` | Performance keyword display |
+| `gads_topic_view` | Performance targeting per argomento |
+| `gads_user_location_view` | Performance per posizione fisica utente |
+| `gads_click_view` | Dati a livello click con GCLID e dispositivo |
+| `gads_generate_keyword_ideas` | Idee keyword da seed o URL |
+| `gads_execute_gaql` | Esecuzione query GAQL personalizzate |
 
-### Write Tools (26)
+### Tool di Scrittura (26)
 
-| Tool | Description |
+| Tool | Descrizione |
 |------|-------------|
-| `gads_create_campaign` | Create campaigns with budget and bidding |
-| `gads_update_campaign` | Update campaign settings |
-| `gads_set_campaign_status` | Enable, pause, or remove campaigns |
-| `gads_create_ad_group` | Create ad groups within campaigns |
-| `gads_set_ad_group_status` | Enable, pause, or remove ad groups |
-| `gads_set_ad_status` | Enable, pause, or remove ads |
-| `gads_add_keywords` | Add keywords with match types and bids |
-| `gads_update_keyword` | Update keyword bids or status |
-| `gads_add_negative_keywords` | Add negative keywords (campaign or ad group level) |
-| `gads_create_responsive_search_ad` | Create RSAs with multiple headlines/descriptions |
-| `gads_create_responsive_display_ad` | Create responsive display ads |
-| `gads_create_demand_gen_ad` | Create Demand Gen campaign ads |
-| `gads_create_video_ad` | Create video ads (YouTube) |
-| `gads_update_budget` | Update campaign budget amounts |
-| `gads_set_bidding_strategy` | Set or change bidding strategies |
-| `gads_create_ad_extension` | Create sitelinks, callouts, call extensions |
-| `gads_set_location_targeting` | Add geographic location targeting |
-| `gads_set_language_targeting` | Set language targeting |
-| `gads_set_device_targeting` | Set device bid modifiers |
-| `gads_set_demographic_targeting` | Target by age, gender, income |
-| `gads_create_audience_segment` | Create custom audience segments |
-| `gads_create_asset` | Create reusable assets (images, text, video) |
-| `gads_create_asset_group` | Create asset groups for Performance Max |
-| `gads_add_asset_group_assets` | Link assets to asset groups |
-| `gads_set_listing_group_filter` | Set product listing group filters (Shopping) |
-| `gads_link_merchant_center` | Link Merchant Center account |
-| `gads_upload_click_conversions` | Upload offline click conversions |
-| `gads_upload_customer_list` | Upload customer match lists |
-| `gads_remove_customer_list_members` | Remove members from customer lists |
+| `gads_create_campaign` | Creazione campagne con budget e offerta |
+| `gads_update_campaign` | Aggiornamento impostazioni campagna |
+| `gads_set_campaign_status` | Attivazione, pausa o rimozione campagne |
+| `gads_create_ad_group` | Creazione gruppi annunci nelle campagne |
+| `gads_set_ad_group_status` | Attivazione, pausa o rimozione gruppi annunci |
+| `gads_set_ad_status` | Attivazione, pausa o rimozione annunci |
+| `gads_add_keywords` | Aggiunta keyword con tipi di corrispondenza e offerte |
+| `gads_update_keyword` | Aggiornamento offerte o stato keyword |
+| `gads_add_negative_keywords` | Aggiunta keyword negative (campagna o gruppo annunci) |
+| `gads_create_responsive_search_ad` | Creazione RSA con titoli/descrizioni multipli |
+| `gads_create_responsive_display_ad` | Creazione annunci display responsive |
+| `gads_create_demand_gen_ad` | Creazione annunci Demand Gen |
+| `gads_create_video_ad` | Creazione annunci video (YouTube) |
+| `gads_update_budget` | Aggiornamento importo budget campagna |
+| `gads_set_bidding_strategy` | Impostazione o modifica strategia di offerta |
+| `gads_create_ad_extension` | Creazione sitelink, callout, estensioni di chiamata |
+| `gads_set_location_targeting` | Targeting geografico per localita |
+| `gads_set_language_targeting` | Targeting per lingua |
+| `gads_set_device_targeting` | Modificatori offerta per dispositivo |
+| `gads_set_demographic_targeting` | Targeting per eta, genere, reddito |
+| `gads_create_audience_segment` | Creazione segmenti di pubblico personalizzati |
+| `gads_create_asset` | Creazione asset riutilizzabili (immagini, testo, video) |
+| `gads_create_asset_group` | Creazione gruppi di asset per Performance Max |
+| `gads_add_asset_group_assets` | Collegamento asset ai gruppi di asset |
+| `gads_set_listing_group_filter` | Filtri gruppi schede prodotto (Shopping) |
+| `gads_link_merchant_center` | Collegamento account Merchant Center |
+| `gads_upload_click_conversions` | Upload conversioni click offline |
+| `gads_upload_customer_list` | Upload liste clienti per customer match |
+| `gads_remove_customer_list_members` | Rimozione membri dalle liste clienti |
 
-## Prerequisites
+## Prerequisiti
 
 - Python 3.12+
-- A Google Ads developer account with API access
-- OAuth2 credentials (client ID, client secret, refresh token)
-- A Google Ads developer token
+- Account sviluppatore Google Ads con accesso API
+- Credenziali OAuth2 (client ID, client secret, refresh token)
+- Token sviluppatore Google Ads
 
-## Installation
+## Installazione
 
 ```bash
-# Clone the repository
+# Clona il repository
 git clone <repo-url>
 cd google-ads-manager
 
-# Install with uv (recommended)
+# Installa con uv (consigliato)
 uv sync
 
-# Or with pip
+# Oppure con pip
 pip install -e .
 ```
 
-## Configuration
+## Configurazione
 
-Set the following environment variables (or add them to a `.env` file):
+Imposta le seguenti variabili d'ambiente (o aggiungile a un file `.env`):
 
 ```bash
-# Required
-GOOGLE_ADS_DEVELOPER_TOKEN=your_developer_token
-GOOGLE_ADS_CLIENT_ID=your_client_id
-GOOGLE_ADS_CLIENT_SECRET=your_client_secret
-GOOGLE_ADS_REFRESH_TOKEN=your_refresh_token
+# Obbligatorie
+GOOGLE_ADS_DEVELOPER_TOKEN=il_tuo_developer_token
+GOOGLE_ADS_CLIENT_ID=il_tuo_client_id
+GOOGLE_ADS_CLIENT_SECRET=il_tuo_client_secret
+GOOGLE_ADS_REFRESH_TOKEN=il_tuo_refresh_token
 
-# Optional — required for MCC (manager) accounts
-GOOGLE_ADS_LOGIN_CUSTOMER_ID=your_manager_account_id
+# Opzionale — necessario per account MCC (manager)
+GOOGLE_ADS_LOGIN_CUSTOMER_ID=il_tuo_id_account_manager
 ```
 
-## Usage
+## Utilizzo
 
-### Run the server
+### Avviare il server
 
 ```bash
 uv run python -m google_ads_mcp.server
 ```
 
-### Claude Desktop / Claude Code configuration
+### Configurazione Claude Desktop / Claude Code
 
-Add to your MCP settings:
+Aggiungi alle impostazioni MCP:
 
 ```json
 {
@@ -131,87 +132,87 @@ Add to your MCP settings:
       "command": "uv",
       "args": ["run", "--directory", "/path/to/google-ads-manager", "python", "-m", "google_ads_mcp.server"],
       "env": {
-        "GOOGLE_ADS_DEVELOPER_TOKEN": "your_developer_token",
-        "GOOGLE_ADS_CLIENT_ID": "your_client_id",
-        "GOOGLE_ADS_CLIENT_SECRET": "your_client_secret",
-        "GOOGLE_ADS_REFRESH_TOKEN": "your_refresh_token",
-        "GOOGLE_ADS_LOGIN_CUSTOMER_ID": "your_manager_account_id"
+        "GOOGLE_ADS_DEVELOPER_TOKEN": "il_tuo_developer_token",
+        "GOOGLE_ADS_CLIENT_ID": "il_tuo_client_id",
+        "GOOGLE_ADS_CLIENT_SECRET": "il_tuo_client_secret",
+        "GOOGLE_ADS_REFRESH_TOKEN": "il_tuo_refresh_token",
+        "GOOGLE_ADS_LOGIN_CUSTOMER_ID": "il_tuo_id_account_manager"
       }
     }
   }
 }
 ```
 
-## Project Structure
+## Struttura del Progetto
 
 ```
 google_ads_mcp/
-├── server.py              # FastMCP server with lifespan management
-├── auth.py                # OAuth2 authentication and client creation
-├── client.py              # Google Ads API client wrapper
+├── server.py              # Server FastMCP con gestione lifecycle
+├── auth.py                # Autenticazione OAuth2 e creazione client
+├── client.py              # Wrapper client Google Ads API
 ├── models/
-│   ├── common.py          # Shared enums, validators, base models
-│   ├── tool_inputs.py     # Input models for read tools
-│   ├── mutation_inputs.py # Input models for write tools
-│   ├── creation_inputs.py # Input models for creation operations
-│   └── asset_inputs.py    # Input models for asset operations
+│   ├── common.py          # Enum condivisi, validatori, modelli base
+│   ├── tool_inputs.py     # Modelli input per tool di lettura
+│   ├── mutation_inputs.py # Modelli input per tool di scrittura
+│   ├── creation_inputs.py # Modelli input per operazioni di creazione
+│   └── asset_inputs.py    # Modelli input per operazioni asset
 ├── tools/
-│   ├── _helpers.py        # Shared utilities (status maps, safe casts)
-│   ├── account.py         # Account overview
-│   ├── ads.py             # Ad group ads (creatives, policy, performance)
-│   ├── ad_groups.py       # Ad groups listing and performance
-│   ├── audiences.py       # Audiences and user interests
-│   ├── budgets.py         # Budgets, bidding strategies, change history
-│   ├── campaigns.py       # Campaigns listing and performance
-│   ├── gaql.py            # Custom GAQL query execution
-│   ├── hierarchy.py       # Account hierarchy and accessible customers
-│   ├── keyword_planner.py # Keyword idea generation
-│   ├── keywords.py        # Keywords listing and performance
-│   ├── labels.py          # All label types (campaign, ad group, etc.)
-│   ├── search_terms.py    # Search terms report
-│   ├── views.py           # Geographic, shopping, display, topic, click views
+│   ├── _helpers.py        # Utility condivise (mappe stato, cast sicuri)
+│   ├── account.py         # Panoramica account
+│   ├── ads.py             # Annunci (creativita, policy, performance)
+│   ├── ad_groups.py       # Lista e performance gruppi annunci
+│   ├── audiences.py       # Pubblico e interessi utente
+│   ├── budgets.py         # Budget, strategie offerta, cronologia modifiche
+│   ├── campaigns.py       # Lista e performance campagne
+│   ├── gaql.py            # Esecuzione query GAQL personalizzate
+│   ├── hierarchy.py       # Gerarchia account, clienti e Merchant Center
+│   ├── keyword_planner.py # Generazione idee keyword
+│   ├── keywords.py        # Lista e performance keyword
+│   ├── labels.py          # Tutti i tipi di etichette
+│   ├── search_terms.py    # Report termini di ricerca
+│   ├── views.py           # Viste geografiche, shopping, display, argomenti, click
 │   └── mutations/
-│       ├── ad_group_ops.py    # Ad group status operations
-│       ├── ad_ops.py          # Ad status operations
-│       ├── asset_ops.py       # Asset and asset group management
-│       ├── bidding_ops.py     # Bidding strategy operations
-│       ├── budget_ops.py      # Budget update operations
-│       ├── campaign_ops.py    # Campaign update and status operations
-│       ├── conversion_ops.py  # Offline conversion uploads
-│       ├── creation_ops.py    # Campaign, ad group, and ad creation
-│       ├── customer_list_ops.py # Customer match list operations
-│       ├── extension_ops.py   # Ad extension creation
-│       ├── keyword_ops.py     # Keyword add/update/negative operations
-│       ├── shopping_ops.py    # Shopping and Merchant Center operations
-│       ├── targeting_ops.py   # Location, device, demographic targeting
-│       └── video_ops.py       # Video ad creation
-├── builders/              # GAQL query and mutation operation builders
+│       ├── ad_group_ops.py    # Operazioni stato gruppi annunci
+│       ├── ad_ops.py          # Operazioni stato annunci
+│       ├── asset_ops.py       # Gestione asset e gruppi di asset
+│       ├── bidding_ops.py     # Operazioni strategie di offerta
+│       ├── budget_ops.py      # Operazioni aggiornamento budget
+│       ├── campaign_ops.py    # Aggiornamento e stato campagne
+│       ├── conversion_ops.py  # Upload conversioni offline
+│       ├── creation_ops.py    # Creazione campagne, gruppi annunci e annunci
+│       ├── customer_list_ops.py # Operazioni liste clienti
+│       ├── extension_ops.py   # Creazione estensioni annuncio
+│       ├── keyword_ops.py     # Aggiunta/aggiornamento/negative keyword
+│       ├── shopping_ops.py    # Operazioni Shopping e Merchant Center
+│       ├── targeting_ops.py   # Targeting localita, dispositivo, demografico
+│       └── video_ops.py       # Creazione annunci video
+├── builders/              # Builder per query GAQL e operazioni mutation
 └── utils/
-    ├── errors.py          # Custom exception classes
-    ├── formatting.py      # Markdown table formatting, currency conversion
-    └── pagination.py      # Result pagination utilities
+    ├── errors.py          # Classi eccezioni personalizzate
+    ├── formatting.py      # Formattazione tabelle markdown, conversione valuta
+    └── pagination.py      # Utility paginazione risultati
 ```
 
-## Development
+## Sviluppo
 
 ```bash
-# Install dev dependencies
+# Installa dipendenze di sviluppo
 uv sync --extra dev
 
-# Run tests
+# Esegui i test
 uv run --extra dev pytest tests/ -v
 
-# Run specific test file
+# Esegui un file di test specifico
 uv run --extra dev pytest tests/test_tools_ads.py -v
 
-# Run with coverage
+# Esegui con copertura
 uv run --extra dev pytest tests/ --cov=google_ads_mcp --cov-report=term-missing
 ```
 
-### Test Suite
+### Suite di Test
 
-648 tests covering all tools, models, builders, and utilities.
+655 test che coprono tutti i tool, modelli, builder e utility.
 
-## License
+## Licenza
 
-Proprietary. All rights reserved. This software is licensed for personal use only. You may not modify, distribute, sublicense, or create derivative works based on this software without prior written authorization.
+Proprietary. Tutti i diritti riservati. Questo software e concesso in licenza esclusivamente per uso personale. Non e consentito modificare, distribuire, sublicenziare o creare opere derivate da questo software senza autorizzazione scritta preventiva.
