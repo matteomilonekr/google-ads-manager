@@ -152,8 +152,8 @@ Aggiungi alle impostazioni MCP:
 {
   "mcpServers": {
     "google-ads": {
-      "command": "uv",
-      "args": ["run", "--directory", "/path/to/google-ads-manager", "python", "-m", "google_ads_mcp.server"],
+      "command": "uvx",
+      "args": ["--from", "git+https://github.com/matteomilonekr/google-ads-manager.git", "google-ads-mcp"],
       "env": {
         "GOOGLE_ADS_DEVELOPER_TOKEN": "il_tuo_developer_token",
         "GOOGLE_ADS_CLIENT_ID": "il_tuo_client_id",
@@ -165,6 +165,8 @@ Aggiungi alle impostazioni MCP:
   }
 }
 ```
+
+Non serve clonare il repository: `uvx` scarica e installa direttamente da GitHub.
 
 ## Struttura del Progetto
 
