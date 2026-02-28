@@ -1,920 +1,934 @@
-# Google Ads MCP Server — Tool Catalog
+# Google Ads MCP Server — Catalogo Tool
 
-> **54 tools** for full Google Ads management via AI assistants.
-> Built on MCP (Model Context Protocol) + Google Ads API v18.
-
----
-
-## Overview
-
-| Category | Count |
-|----------|-------|
-| Read — Account & Campaigns | 7 |
-| Read — Ads, Keywords & Search Terms | 6 |
-| Read — Labels | 6 |
-| Read — Audiences & Interests | 2 |
-| Read — Budgets, Bidding & History | 4 |
-| Read — Account Hierarchy | 2 |
-| Read — Performance Views | 5 |
-| Read — Keyword Planner & GAQL | 2 |
-| Write — Campaign Management | 5 |
-| Write — Ad Group & Ad Management | 5 |
-| Write — Keywords | 3 |
-| Write — Ad Creation (Advanced) | 3 |
-| Write — Targeting | 5 |
-| Write — Assets & Shopping | 5 |
-| Write — Conversions & Customer Lists | 3 |
-| **Total** | **54** |
+> **55 tool** per la gestione completa di Google Ads tramite assistenti AI.
+> Costruito su MCP (Model Context Protocol) + Google Ads API v18.
 
 ---
 
-## Read Tools (28)
+## Panoramica
 
-### Account & Campaigns
+| Categoria | Quantita |
+|-----------|----------|
+| Lettura — Account e Campagne | 7 |
+| Lettura — Annunci, Keyword e Termini di Ricerca | 6 |
+| Lettura — Etichette | 6 |
+| Lettura — Pubblico e Interessi | 2 |
+| Lettura — Budget, Offerte e Cronologia | 4 |
+| Lettura — Gerarchia Account e Merchant Center | 3 |
+| Lettura — Viste Performance | 5 |
+| Lettura — Keyword Planner e GAQL | 2 |
+| Scrittura — Gestione Campagne | 5 |
+| Scrittura — Gestione Gruppi Annunci e Annunci | 5 |
+| Scrittura — Keyword | 3 |
+| Scrittura — Creazione Annunci (Avanzata) | 3 |
+| Scrittura — Targeting | 5 |
+| Scrittura — Asset e Shopping | 5 |
+| Scrittura — Conversioni e Liste Clienti | 3 |
+| **Totale** | **55** |
+
+---
+
+## Tool di Lettura (29)
+
+### Account e Campagne
 
 #### `get_account_overview`
-Get a high-level overview of the Google Ads account with key metrics.
+Panoramica ad alto livello dell'account Google Ads con metriche chiave.
 
-| Parameter | Required | Description |
-|-----------|----------|-------------|
-| `customer_id` | Yes | Google Ads customer ID (e.g. `1234567890` or `123-456-7890`) |
-| `start_date` | No | Start date YYYY-MM-DD (default: 30 days ago) |
-| `end_date` | No | End date YYYY-MM-DD (default: today) |
-| `response_format` | No | `markdown` or `json` |
+| Parametro | Obbligatorio | Descrizione |
+|-----------|-------------|-------------|
+| `customer_id` | Si | ID cliente Google Ads (es. `1234567890` o `123-456-7890`) |
+| `start_date` | No | Data inizio YYYY-MM-DD (default: 30 giorni fa) |
+| `end_date` | No | Data fine YYYY-MM-DD (default: oggi) |
+| `response_format` | No | `markdown` o `json` |
 
 ---
 
 #### `list_campaigns`
-List Google Ads campaigns with optional status and type filters.
+Lista campagne Google Ads con filtri opzionali per stato e tipo.
 
-| Parameter | Required | Description |
-|-----------|----------|-------------|
-| `customer_id` | Yes | Google Ads customer ID |
-| `status` | No | Filter: `all`, `enabled`, `paused`, `removed` |
-| `campaign_type` | No | Filter: `all`, `search`, `display`, `shopping`, `video`, `performance_max`, `demand_gen`, `app`, `smart`, `hotel`, `local`, `local_services`, `travel` |
-| `limit` | No | Max results 1-1000 (default: 50) |
-| `offset` | No | Pagination offset |
-| `response_format` | No | `markdown` or `json` |
+| Parametro | Obbligatorio | Descrizione |
+|-----------|-------------|-------------|
+| `customer_id` | Si | ID cliente Google Ads |
+| `status` | No | Filtro: `all`, `enabled`, `paused`, `removed` |
+| `campaign_type` | No | Filtro: `all`, `search`, `display`, `shopping`, `video`, `performance_max`, `demand_gen`, `app`, `smart`, `hotel`, `local`, `local_services`, `travel` |
+| `limit` | No | Risultati max 1-1000 (default: 50) |
+| `offset` | No | Offset paginazione |
+| `response_format` | No | `markdown` o `json` |
 
 ---
 
 #### `get_campaign_performance`
-Get performance metrics for campaigns over a date range.
+Metriche performance campagne su intervallo date.
 
-| Parameter | Required | Description |
-|-----------|----------|-------------|
-| `customer_id` | Yes | Google Ads customer ID |
-| `campaign_id` | No | Specific campaign ID |
-| `status` | No | Filter: `all`, `enabled`, `paused`, `removed` |
-| `start_date` | No | Start date YYYY-MM-DD (default: 30 days ago) |
-| `end_date` | No | End date YYYY-MM-DD (default: today) |
-| `limit` | No | Max results 1-1000 (default: 50) |
-| `offset` | No | Pagination offset |
-| `response_format` | No | `markdown` or `json` |
+| Parametro | Obbligatorio | Descrizione |
+|-----------|-------------|-------------|
+| `customer_id` | Si | ID cliente Google Ads |
+| `campaign_id` | No | ID campagna specifico |
+| `status` | No | Filtro: `all`, `enabled`, `paused`, `removed` |
+| `start_date` | No | Data inizio YYYY-MM-DD (default: 30 giorni fa) |
+| `end_date` | No | Data fine YYYY-MM-DD (default: oggi) |
+| `limit` | No | Risultati max 1-1000 (default: 50) |
+| `offset` | No | Offset paginazione |
+| `response_format` | No | `markdown` o `json` |
 
-**Metrics returned:** Impressions, Clicks, Cost, Conversions, CTR, Avg CPC, Conversion Rate
+**Metriche restituite:** Impressioni, Click, Costo, Conversioni, CTR, CPC medio, Tasso di conversione
 
 ---
 
 #### `list_ad_groups`
-List ad groups with optional campaign and status filters.
+Lista gruppi annunci con filtri opzionali per campagna e stato.
 
-| Parameter | Required | Description |
-|-----------|----------|-------------|
-| `customer_id` | Yes | Google Ads customer ID |
-| `campaign_id` | No | Filter by campaign ID |
-| `status` | No | Filter: `all`, `enabled`, `paused`, `removed` |
-| `limit` | No | Max results 1-1000 (default: 50) |
-| `offset` | No | Pagination offset |
-| `response_format` | No | `markdown` or `json` |
+| Parametro | Obbligatorio | Descrizione |
+|-----------|-------------|-------------|
+| `customer_id` | Si | ID cliente Google Ads |
+| `campaign_id` | No | Filtro per ID campagna |
+| `status` | No | Filtro: `all`, `enabled`, `paused`, `removed` |
+| `limit` | No | Risultati max 1-1000 (default: 50) |
+| `offset` | No | Offset paginazione |
+| `response_format` | No | `markdown` o `json` |
 
 ---
 
 #### `get_ad_group_performance`
-Get performance metrics for ad groups over a date range.
+Metriche performance gruppi annunci su intervallo date.
 
-| Parameter | Required | Description |
-|-----------|----------|-------------|
-| `customer_id` | Yes | Google Ads customer ID |
-| `campaign_id` | No | Filter by campaign ID |
-| `ad_group_id` | No | Specific ad group ID |
-| `status` | No | Filter: `all`, `enabled`, `paused`, `removed` |
-| `start_date` | No | Start date YYYY-MM-DD (default: 30 days ago) |
-| `end_date` | No | End date YYYY-MM-DD (default: today) |
-| `limit` | No | Max results 1-1000 (default: 50) |
-| `offset` | No | Pagination offset |
-| `response_format` | No | `markdown` or `json` |
+| Parametro | Obbligatorio | Descrizione |
+|-----------|-------------|-------------|
+| `customer_id` | Si | ID cliente Google Ads |
+| `campaign_id` | No | Filtro per ID campagna |
+| `ad_group_id` | No | ID gruppo annunci specifico |
+| `status` | No | Filtro: `all`, `enabled`, `paused`, `removed` |
+| `start_date` | No | Data inizio YYYY-MM-DD (default: 30 giorni fa) |
+| `end_date` | No | Data fine YYYY-MM-DD (default: oggi) |
+| `limit` | No | Risultati max 1-1000 (default: 50) |
+| `offset` | No | Offset paginazione |
+| `response_format` | No | `markdown` o `json` |
 
-**Metrics returned:** Impressions, Clicks, Cost, Conversions, CTR, Avg CPC, Conversion Rate
+**Metriche restituite:** Impressioni, Click, Costo, Conversioni, CTR, CPC medio, Tasso di conversione
 
 ---
 
-### Ads, Keywords & Search Terms
+### Annunci, Keyword e Termini di Ricerca
 
 #### `gads_list_ad_group_ads`
-List ads within ad groups with creative details, performance metrics, and policy status.
+Lista annunci nei gruppi annunci con dettagli creativi, metriche performance e stato policy.
 
-| Parameter | Required | Description |
-|-----------|----------|-------------|
-| `customer_id` | Yes | Google Ads customer ID |
-| `campaign_id` | No | Filter by campaign ID |
-| `ad_group_id` | No | Filter by ad group ID |
-| `status` | No | Filter: `all`, `enabled`, `paused`, `removed` |
-| `start_date` | No | Start date YYYY-MM-DD (default: 30 days ago) |
-| `end_date` | No | End date YYYY-MM-DD (default: today) |
-| `limit` | No | Max results 1-1000 (default: 50) |
-| `offset` | No | Pagination offset |
-| `response_format` | No | `markdown` or `json` |
+| Parametro | Obbligatorio | Descrizione |
+|-----------|-------------|-------------|
+| `customer_id` | Si | ID cliente Google Ads |
+| `campaign_id` | No | Filtro per ID campagna |
+| `ad_group_id` | No | Filtro per ID gruppo annunci |
+| `status` | No | Filtro: `all`, `enabled`, `paused`, `removed` |
+| `start_date` | No | Data inizio YYYY-MM-DD (default: 30 giorni fa) |
+| `end_date` | No | Data fine YYYY-MM-DD (default: oggi) |
+| `limit` | No | Risultati max 1-1000 (default: 50) |
+| `offset` | No | Offset paginazione |
+| `response_format` | No | `markdown` o `json` |
 
-**Fields returned:** Ad ID, Name, Type, Status, Approval Status, Review Status, Ad Group, Campaign, Impressions, Clicks, Cost, Conversions, CTR
+**Campi restituiti:** ID Annuncio, Nome, Tipo, Stato, Stato Approvazione, Stato Revisione, Gruppo Annunci, Campagna, Impressioni, Click, Costo, Conversioni, CTR
 
 ---
 
 #### `list_keywords`
-List keywords with optional campaign and ad group filters.
+Lista keyword con filtri opzionali per campagna e gruppo annunci.
 
-| Parameter | Required | Description |
-|-----------|----------|-------------|
-| `customer_id` | Yes | Google Ads customer ID |
-| `campaign_id` | No | Filter by campaign ID |
-| `ad_group_id` | No | Filter by ad group ID |
-| `limit` | No | Max results 1-1000 (default: 50) |
-| `offset` | No | Pagination offset |
-| `response_format` | No | `markdown` or `json` |
+| Parametro | Obbligatorio | Descrizione |
+|-----------|-------------|-------------|
+| `customer_id` | Si | ID cliente Google Ads |
+| `campaign_id` | No | Filtro per ID campagna |
+| `ad_group_id` | No | Filtro per ID gruppo annunci |
+| `limit` | No | Risultati max 1-1000 (default: 50) |
+| `offset` | No | Offset paginazione |
+| `response_format` | No | `markdown` o `json` |
 
 ---
 
 #### `get_keyword_performance`
-Get performance metrics for keywords over a date range.
+Metriche performance keyword su intervallo date.
 
-| Parameter | Required | Description |
-|-----------|----------|-------------|
-| `customer_id` | Yes | Google Ads customer ID |
-| `campaign_id` | No | Filter by campaign ID |
-| `ad_group_id` | No | Filter by ad group ID |
-| `start_date` | No | Start date YYYY-MM-DD (default: 30 days ago) |
-| `end_date` | No | End date YYYY-MM-DD (default: today) |
-| `limit` | No | Max results 1-1000 (default: 50) |
-| `offset` | No | Pagination offset |
-| `response_format` | No | `markdown` or `json` |
+| Parametro | Obbligatorio | Descrizione |
+|-----------|-------------|-------------|
+| `customer_id` | Si | ID cliente Google Ads |
+| `campaign_id` | No | Filtro per ID campagna |
+| `ad_group_id` | No | Filtro per ID gruppo annunci |
+| `start_date` | No | Data inizio YYYY-MM-DD (default: 30 giorni fa) |
+| `end_date` | No | Data fine YYYY-MM-DD (default: oggi) |
+| `limit` | No | Risultati max 1-1000 (default: 50) |
+| `offset` | No | Offset paginazione |
+| `response_format` | No | `markdown` o `json` |
 
 ---
 
 #### `search_terms_report`
-Get search terms report showing actual queries that triggered ads.
+Report termini di ricerca che mostrano le query effettive che hanno attivato gli annunci.
 
-| Parameter | Required | Description |
-|-----------|----------|-------------|
-| `customer_id` | Yes | Google Ads customer ID |
-| `campaign_id` | No | Filter by campaign ID |
-| `ad_group_id` | No | Filter by ad group ID |
-| `start_date` | No | Start date YYYY-MM-DD (default: 30 days ago) |
-| `end_date` | No | End date YYYY-MM-DD (default: today) |
-| `limit` | No | Max results 1-5000 (default: 100) |
-| `offset` | No | Pagination offset |
-| `response_format` | No | `markdown` or `json` |
+| Parametro | Obbligatorio | Descrizione |
+|-----------|-------------|-------------|
+| `customer_id` | Si | ID cliente Google Ads |
+| `campaign_id` | No | Filtro per ID campagna |
+| `ad_group_id` | No | Filtro per ID gruppo annunci |
+| `start_date` | No | Data inizio YYYY-MM-DD (default: 30 giorni fa) |
+| `end_date` | No | Data fine YYYY-MM-DD (default: oggi) |
+| `limit` | No | Risultati max 1-5000 (default: 100) |
+| `offset` | No | Offset paginazione |
+| `response_format` | No | `markdown` o `json` |
 
 ---
 
-### Labels
+### Etichette
 
 #### `gads_list_labels`
-List all labels in the Google Ads account.
+Lista tutte le etichette dell'account Google Ads.
 
-| Parameter | Required | Description |
-|-----------|----------|-------------|
-| `customer_id` | Yes | Google Ads customer ID |
-| `limit` | No | Max results (default: 50) |
-| `offset` | No | Pagination offset |
-| `response_format` | No | `markdown` or `json` |
+| Parametro | Obbligatorio | Descrizione |
+|-----------|-------------|-------------|
+| `customer_id` | Si | ID cliente Google Ads |
+| `limit` | No | Risultati max (default: 50) |
+| `offset` | No | Offset paginazione |
+| `response_format` | No | `markdown` o `json` |
 
 ---
 
 #### `gads_list_campaign_labels`
-List campaign-label associations.
+Lista associazioni campagna-etichetta.
 
-| Parameter | Required | Description |
-|-----------|----------|-------------|
-| `customer_id` | Yes | Google Ads customer ID |
-| `campaign_id` | No | Filter by campaign ID |
-| `label_id` | No | Filter by label ID |
-| `limit` | No | Max results (default: 50) |
-| `offset` | No | Pagination offset |
-| `response_format` | No | `markdown` or `json` |
+| Parametro | Obbligatorio | Descrizione |
+|-----------|-------------|-------------|
+| `customer_id` | Si | ID cliente Google Ads |
+| `campaign_id` | No | Filtro per ID campagna |
+| `label_id` | No | Filtro per ID etichetta |
+| `limit` | No | Risultati max (default: 50) |
+| `offset` | No | Offset paginazione |
+| `response_format` | No | `markdown` o `json` |
 
 ---
 
 #### `gads_list_ad_group_labels`
-List ad group-label associations.
+Lista associazioni gruppo annunci-etichetta.
 
-| Parameter | Required | Description |
-|-----------|----------|-------------|
-| `customer_id` | Yes | Google Ads customer ID |
-| `ad_group_id` | No | Filter by ad group ID |
-| `label_id` | No | Filter by label ID |
-| `limit` | No | Max results (default: 50) |
-| `offset` | No | Pagination offset |
-| `response_format` | No | `markdown` or `json` |
+| Parametro | Obbligatorio | Descrizione |
+|-----------|-------------|-------------|
+| `customer_id` | Si | ID cliente Google Ads |
+| `ad_group_id` | No | Filtro per ID gruppo annunci |
+| `label_id` | No | Filtro per ID etichetta |
+| `limit` | No | Risultati max (default: 50) |
+| `offset` | No | Offset paginazione |
+| `response_format` | No | `markdown` o `json` |
 
 ---
 
 #### `gads_list_ad_group_ad_labels`
-List ad-label associations.
+Lista associazioni annuncio-etichetta.
 
-| Parameter | Required | Description |
-|-----------|----------|-------------|
-| `customer_id` | Yes | Google Ads customer ID |
-| `label_id` | No | Filter by label ID |
-| `limit` | No | Max results (default: 50) |
-| `offset` | No | Pagination offset |
-| `response_format` | No | `markdown` or `json` |
+| Parametro | Obbligatorio | Descrizione |
+|-----------|-------------|-------------|
+| `customer_id` | Si | ID cliente Google Ads |
+| `label_id` | No | Filtro per ID etichetta |
+| `limit` | No | Risultati max (default: 50) |
+| `offset` | No | Offset paginazione |
+| `response_format` | No | `markdown` o `json` |
 
 ---
 
 #### `gads_list_ad_group_criterion_labels`
-List criterion-label associations.
+Lista associazioni criterio-etichetta.
 
-| Parameter | Required | Description |
-|-----------|----------|-------------|
-| `customer_id` | Yes | Google Ads customer ID |
-| `label_id` | No | Filter by label ID |
-| `limit` | No | Max results (default: 50) |
-| `offset` | No | Pagination offset |
-| `response_format` | No | `markdown` or `json` |
+| Parametro | Obbligatorio | Descrizione |
+|-----------|-------------|-------------|
+| `customer_id` | Si | ID cliente Google Ads |
+| `label_id` | No | Filtro per ID etichetta |
+| `limit` | No | Risultati max (default: 50) |
+| `offset` | No | Offset paginazione |
+| `response_format` | No | `markdown` o `json` |
 
 ---
 
 #### `gads_list_customer_labels`
-List customer-label associations.
+Lista associazioni cliente-etichetta.
 
-| Parameter | Required | Description |
-|-----------|----------|-------------|
-| `customer_id` | Yes | Google Ads customer ID |
-| `limit` | No | Max results (default: 50) |
-| `offset` | No | Pagination offset |
-| `response_format` | No | `markdown` or `json` |
+| Parametro | Obbligatorio | Descrizione |
+|-----------|-------------|-------------|
+| `customer_id` | Si | ID cliente Google Ads |
+| `limit` | No | Risultati max (default: 50) |
+| `offset` | No | Offset paginazione |
+| `response_format` | No | `markdown` o `json` |
 
 ---
 
-### Audiences & Interests
+### Pubblico e Interessi
 
 #### `gads_list_audiences`
-List audience segments with targeting info and performance metrics.
+Lista segmenti di pubblico con info targeting e metriche performance.
 
-| Parameter | Required | Description |
-|-----------|----------|-------------|
-| `customer_id` | Yes | Google Ads customer ID |
-| `campaign_id` | No | Filter by campaign ID |
-| `start_date` | No | Start date YYYY-MM-DD (default: 30 days ago) |
-| `end_date` | No | End date YYYY-MM-DD (default: today) |
-| `limit` | No | Max results (default: 50) |
-| `offset` | No | Pagination offset |
-| `response_format` | No | `markdown` or `json` |
+| Parametro | Obbligatorio | Descrizione |
+|-----------|-------------|-------------|
+| `customer_id` | Si | ID cliente Google Ads |
+| `campaign_id` | No | Filtro per ID campagna |
+| `start_date` | No | Data inizio YYYY-MM-DD (default: 30 giorni fa) |
+| `end_date` | No | Data fine YYYY-MM-DD (default: oggi) |
+| `limit` | No | Risultati max (default: 50) |
+| `offset` | No | Offset paginazione |
+| `response_format` | No | `markdown` o `json` |
 
 ---
 
 #### `gads_list_user_interests`
-List available user interest categories for audience targeting.
+Lista categorie di interessi utente disponibili per il targeting.
 
-| Parameter | Required | Description |
-|-----------|----------|-------------|
-| `customer_id` | Yes | Google Ads customer ID |
-| `taxonomy_type` | No | Filter by taxonomy type |
-| `limit` | No | Max results (default: 50) |
-| `offset` | No | Pagination offset |
-| `response_format` | No | `markdown` or `json` |
+| Parametro | Obbligatorio | Descrizione |
+|-----------|-------------|-------------|
+| `customer_id` | Si | ID cliente Google Ads |
+| `taxonomy_type` | No | Filtro per tipo tassonomia |
+| `limit` | No | Risultati max (default: 50) |
+| `offset` | No | Offset paginazione |
+| `response_format` | No | `markdown` o `json` |
 
 ---
 
-### Budgets, Bidding & History
+### Budget, Offerte e Cronologia
 
 #### `gads_list_campaign_budgets`
-List campaign budgets with detailed configuration.
+Lista budget campagne con configurazione dettagliata.
 
-| Parameter | Required | Description |
-|-----------|----------|-------------|
-| `customer_id` | Yes | Google Ads customer ID |
-| `limit` | No | Max results (default: 50) |
-| `offset` | No | Pagination offset |
-| `response_format` | No | `markdown` or `json` |
+| Parametro | Obbligatorio | Descrizione |
+|-----------|-------------|-------------|
+| `customer_id` | Si | ID cliente Google Ads |
+| `limit` | No | Risultati max (default: 50) |
+| `offset` | No | Offset paginazione |
+| `response_format` | No | `markdown` o `json` |
 
 ---
 
 #### `gads_get_bidding_strategies`
-Get campaign-level bidding strategy configuration.
+Configurazione strategie di offerta a livello campagna.
 
-| Parameter | Required | Description |
-|-----------|----------|-------------|
-| `customer_id` | Yes | Google Ads customer ID |
-| `campaign_id` | No | Filter by campaign ID |
-| `limit` | No | Max results (default: 50) |
-| `offset` | No | Pagination offset |
-| `response_format` | No | `markdown` or `json` |
+| Parametro | Obbligatorio | Descrizione |
+|-----------|-------------|-------------|
+| `customer_id` | Si | ID cliente Google Ads |
+| `campaign_id` | No | Filtro per ID campagna |
+| `limit` | No | Risultati max (default: 50) |
+| `offset` | No | Offset paginazione |
+| `response_format` | No | `markdown` o `json` |
 
 ---
 
 #### `gads_get_ad_group_bidding_strategies`
-Get ad group-level bidding information including CPC bids and targets.
+Informazioni offerte a livello gruppo annunci, incluse offerte CPC e target.
 
-| Parameter | Required | Description |
-|-----------|----------|-------------|
-| `customer_id` | Yes | Google Ads customer ID |
-| `campaign_id` | No | Filter by campaign ID |
-| `limit` | No | Max results (default: 50) |
-| `offset` | No | Pagination offset |
-| `response_format` | No | `markdown` or `json` |
+| Parametro | Obbligatorio | Descrizione |
+|-----------|-------------|-------------|
+| `customer_id` | Si | ID cliente Google Ads |
+| `campaign_id` | No | Filtro per ID campagna |
+| `limit` | No | Risultati max (default: 50) |
+| `offset` | No | Offset paginazione |
+| `response_format` | No | `markdown` o `json` |
 
 ---
 
 #### `gads_list_change_history`
-List change history for account entities showing recent modifications.
+Cronologia modifiche delle entita account con le modifiche recenti.
 
-| Parameter | Required | Description |
-|-----------|----------|-------------|
-| `customer_id` | Yes | Google Ads customer ID |
-| `resource_type` | No | Filter by resource type |
-| `limit` | No | Max results (default: 50) |
-| `offset` | No | Pagination offset |
-| `response_format` | No | `markdown` or `json` |
+| Parametro | Obbligatorio | Descrizione |
+|-----------|-------------|-------------|
+| `customer_id` | Si | ID cliente Google Ads |
+| `resource_type` | No | Filtro per tipo risorsa |
+| `limit` | No | Risultati max (default: 50) |
+| `offset` | No | Offset paginazione |
+| `response_format` | No | `markdown` o `json` |
 
 ---
 
-### Account Hierarchy
+### Gerarchia Account e Merchant Center
 
 #### `gads_list_customer_clients`
-List client accounts under a manager (MCC) account.
+Lista account cliente sotto un account manager (MCC).
 
-| Parameter | Required | Description |
-|-----------|----------|-------------|
-| `customer_id` | Yes | Manager account customer ID |
-| `limit` | No | Max results (default: 50) |
-| `offset` | No | Pagination offset |
-| `response_format` | No | `markdown` or `json` |
+| Parametro | Obbligatorio | Descrizione |
+|-----------|-------------|-------------|
+| `customer_id` | Si | ID account manager |
+| `limit` | No | Risultati max (default: 50) |
+| `offset` | No | Offset paginazione |
+| `response_format` | No | `markdown` o `json` |
 
 ---
 
 #### `gads_list_accessible_customers`
-List all customer accounts accessible with current credentials.
+Lista tutti gli account cliente accessibili con le credenziali correnti.
 
-| Parameter | Required | Description |
-|-----------|----------|-------------|
-| `response_format` | No | `markdown` or `json` |
+| Parametro | Obbligatorio | Descrizione |
+|-----------|-------------|-------------|
+| `response_format` | No | `markdown` o `json` |
 
 ---
 
-### Performance Views
+#### `gads_list_merchant_center_links`
+Lista account Merchant Center collegati all'account Google Ads.
+
+| Parametro | Obbligatorio | Descrizione |
+|-----------|-------------|-------------|
+| `customer_id` | Si | ID cliente Google Ads |
+| `limit` | No | Risultati max (default: 50) |
+| `offset` | No | Offset paginazione |
+| `response_format` | No | `markdown` o `json` |
+
+**Campi restituiti:** ID Merchant, Nome Account, Stato
+
+---
+
+### Viste Performance
 
 #### `gads_geographic_view`
-Get location-based performance data from geographic view.
+Dati performance basati sulla localita dalla vista geografica.
 
-| Parameter | Required | Description |
-|-----------|----------|-------------|
-| `customer_id` | Yes | Google Ads customer ID |
-| `campaign_id` | No | Filter by campaign ID |
-| `start_date` | No | Start date YYYY-MM-DD (default: 30 days ago) |
-| `end_date` | No | End date YYYY-MM-DD (default: today) |
-| `limit` | No | Max results (default: 50) |
-| `offset` | No | Pagination offset |
-| `response_format` | No | `markdown` or `json` |
+| Parametro | Obbligatorio | Descrizione |
+|-----------|-------------|-------------|
+| `customer_id` | Si | ID cliente Google Ads |
+| `campaign_id` | No | Filtro per ID campagna |
+| `start_date` | No | Data inizio YYYY-MM-DD (default: 30 giorni fa) |
+| `end_date` | No | Data fine YYYY-MM-DD (default: oggi) |
+| `limit` | No | Risultati max (default: 50) |
+| `offset` | No | Offset paginazione |
+| `response_format` | No | `markdown` o `json` |
 
 ---
 
 #### `gads_shopping_performance_view`
-Get product-level shopping performance data.
+Dati performance Shopping a livello prodotto.
 
-| Parameter | Required | Description |
-|-----------|----------|-------------|
-| `customer_id` | Yes | Google Ads customer ID |
-| `campaign_id` | No | Filter by campaign ID |
-| `start_date` | No | Start date YYYY-MM-DD (default: 30 days ago) |
-| `end_date` | No | End date YYYY-MM-DD (default: today) |
-| `limit` | No | Max results (default: 50) |
-| `offset` | No | Pagination offset |
-| `response_format` | No | `markdown` or `json` |
+| Parametro | Obbligatorio | Descrizione |
+|-----------|-------------|-------------|
+| `customer_id` | Si | ID cliente Google Ads |
+| `campaign_id` | No | Filtro per ID campagna |
+| `start_date` | No | Data inizio YYYY-MM-DD (default: 30 giorni fa) |
+| `end_date` | No | Data fine YYYY-MM-DD (default: oggi) |
+| `limit` | No | Risultati max (default: 50) |
+| `offset` | No | Offset paginazione |
+| `response_format` | No | `markdown` o `json` |
 
 ---
 
 #### `gads_display_keyword_view`
-Get display keyword performance data.
+Dati performance keyword display.
 
-| Parameter | Required | Description |
-|-----------|----------|-------------|
-| `customer_id` | Yes | Google Ads customer ID |
-| `campaign_id` | No | Filter by campaign ID |
-| `start_date` | No | Start date YYYY-MM-DD (default: 30 days ago) |
-| `end_date` | No | End date YYYY-MM-DD (default: today) |
-| `limit` | No | Max results (default: 50) |
-| `offset` | No | Pagination offset |
-| `response_format` | No | `markdown` or `json` |
+| Parametro | Obbligatorio | Descrizione |
+|-----------|-------------|-------------|
+| `customer_id` | Si | ID cliente Google Ads |
+| `campaign_id` | No | Filtro per ID campagna |
+| `start_date` | No | Data inizio YYYY-MM-DD (default: 30 giorni fa) |
+| `end_date` | No | Data fine YYYY-MM-DD (default: oggi) |
+| `limit` | No | Risultati max (default: 50) |
+| `offset` | No | Offset paginazione |
+| `response_format` | No | `markdown` o `json` |
 
 ---
 
 #### `gads_topic_view`
-Get topic targeting performance data.
+Dati performance targeting per argomento.
 
-| Parameter | Required | Description |
-|-----------|----------|-------------|
-| `customer_id` | Yes | Google Ads customer ID |
-| `campaign_id` | No | Filter by campaign ID |
-| `start_date` | No | Start date YYYY-MM-DD (default: 30 days ago) |
-| `end_date` | No | End date YYYY-MM-DD (default: today) |
-| `limit` | No | Max results (default: 50) |
-| `offset` | No | Pagination offset |
-| `response_format` | No | `markdown` or `json` |
+| Parametro | Obbligatorio | Descrizione |
+|-----------|-------------|-------------|
+| `customer_id` | Si | ID cliente Google Ads |
+| `campaign_id` | No | Filtro per ID campagna |
+| `start_date` | No | Data inizio YYYY-MM-DD (default: 30 giorni fa) |
+| `end_date` | No | Data fine YYYY-MM-DD (default: oggi) |
+| `limit` | No | Risultati max (default: 50) |
+| `offset` | No | Offset paginazione |
+| `response_format` | No | `markdown` o `json` |
 
 ---
 
 #### `gads_user_location_view`
-Get user location performance data showing where users are physically located.
+Dati performance per posizione fisica dell'utente.
 
-| Parameter | Required | Description |
-|-----------|----------|-------------|
-| `customer_id` | Yes | Google Ads customer ID |
-| `campaign_id` | No | Filter by campaign ID |
-| `start_date` | No | Start date YYYY-MM-DD (default: 30 days ago) |
-| `end_date` | No | End date YYYY-MM-DD (default: today) |
-| `limit` | No | Max results (default: 50) |
-| `offset` | No | Pagination offset |
-| `response_format` | No | `markdown` or `json` |
+| Parametro | Obbligatorio | Descrizione |
+|-----------|-------------|-------------|
+| `customer_id` | Si | ID cliente Google Ads |
+| `campaign_id` | No | Filtro per ID campagna |
+| `start_date` | No | Data inizio YYYY-MM-DD (default: 30 giorni fa) |
+| `end_date` | No | Data fine YYYY-MM-DD (default: oggi) |
+| `limit` | No | Risultati max (default: 50) |
+| `offset` | No | Offset paginazione |
+| `response_format` | No | `markdown` o `json` |
 
 ---
 
 #### `gads_click_view`
-Get click-level data including GCLID, location, and device info.
+Dati a livello click con GCLID, localita e info dispositivo.
 
-| Parameter | Required | Description |
-|-----------|----------|-------------|
-| `customer_id` | Yes | Google Ads customer ID |
-| `campaign_id` | No | Filter by campaign ID |
-| `start_date` | No | Start date YYYY-MM-DD (default: 30 days ago) |
-| `end_date` | No | End date YYYY-MM-DD (default: today) |
-| `limit` | No | Max results (default: 50) |
-| `offset` | No | Pagination offset |
-| `response_format` | No | `markdown` or `json` |
+| Parametro | Obbligatorio | Descrizione |
+|-----------|-------------|-------------|
+| `customer_id` | Si | ID cliente Google Ads |
+| `campaign_id` | No | Filtro per ID campagna |
+| `start_date` | No | Data inizio YYYY-MM-DD (default: 30 giorni fa) |
+| `end_date` | No | Data fine YYYY-MM-DD (default: oggi) |
+| `limit` | No | Risultati max (default: 50) |
+| `offset` | No | Offset paginazione |
+| `response_format` | No | `markdown` o `json` |
 
 ---
 
-### Keyword Planner & GAQL
+### Keyword Planner e GAQL
 
 #### `gads_generate_keyword_ideas`
-Generate keyword suggestions using Google Ads Keyword Planner.
+Generazione suggerimenti keyword tramite Google Ads Keyword Planner.
 
-| Parameter | Required | Description |
-|-----------|----------|-------------|
-| `customer_id` | Yes | Google Ads customer ID |
-| `keywords` | Yes | Seed keywords (comma-separated or list) |
-| `language_id` | No | Language criterion ID (default: English) |
-| `geo_target_id` | No | Geo target criterion ID |
-| `limit` | No | Max results (default: 50) |
-| `offset` | No | Pagination offset |
-| `response_format` | No | `markdown` or `json` |
+| Parametro | Obbligatorio | Descrizione |
+|-----------|-------------|-------------|
+| `customer_id` | Si | ID cliente Google Ads |
+| `keywords` | Si | Keyword seed (separate da virgola o lista) |
+| `language_id` | No | ID criterio lingua (default: inglese) |
+| `geo_target_id` | No | ID criterio target geografico |
+| `limit` | No | Risultati max (default: 50) |
+| `offset` | No | Offset paginazione |
+| `response_format` | No | `markdown` o `json` |
 
 ---
 
 #### `gads_execute_gaql`
-Execute a custom Google Ads Query Language (GAQL) query.
+Esecuzione query personalizzate in Google Ads Query Language (GAQL).
 
-| Parameter | Required | Description |
-|-----------|----------|-------------|
-| `customer_id` | Yes | Google Ads customer ID |
-| `query` | Yes | Full GAQL query string |
-| `limit` | No | Max results |
-| `response_format` | No | `markdown` or `json` |
+| Parametro | Obbligatorio | Descrizione |
+|-----------|-------------|-------------|
+| `customer_id` | Si | ID cliente Google Ads |
+| `query` | Si | Query GAQL completa |
+| `limit` | No | Risultati max |
+| `response_format` | No | `markdown` o `json` |
 
 ---
 
-## Write Tools (26)
+## Tool di Scrittura (26)
 
-### Campaign Management
+### Gestione Campagne
 
 #### `gads_create_campaign`
-Create a new campaign with budget and bidding strategy.
+Creazione nuova campagna con budget e strategia di offerta.
 
-| Parameter | Required | Description |
-|-----------|----------|-------------|
-| `customer_id` | Yes | Google Ads customer ID |
-| `name` | Yes | Campaign name |
-| `campaign_type` | Yes | `SEARCH`, `DISPLAY`, `SHOPPING`, `VIDEO`, `PERFORMANCE_MAX`, `DEMAND_GEN` |
-| `bidding_strategy_type` | Yes | `MANUAL_CPC`, `TARGET_CPA`, `TARGET_ROAS`, `MAXIMIZE_CONVERSIONS`, `MAXIMIZE_CONVERSION_VALUE`, `MAXIMIZE_CLICKS` |
-| `budget_amount_micros` | Yes | Daily budget in micros (e.g. `10000000` = $10) |
-| `start_date` | No | Start date YYYY-MM-DD |
-| `end_date` | No | End date YYYY-MM-DD |
-| `target_cpa_micros` | No | Target CPA in micros (for TARGET_CPA) |
-| `target_roas` | No | Target ROAS (for TARGET_ROAS) |
+| Parametro | Obbligatorio | Descrizione |
+|-----------|-------------|-------------|
+| `customer_id` | Si | ID cliente Google Ads |
+| `name` | Si | Nome campagna |
+| `campaign_type` | Si | `SEARCH`, `DISPLAY`, `SHOPPING`, `VIDEO`, `PERFORMANCE_MAX`, `DEMAND_GEN` |
+| `bidding_strategy_type` | Si | `MANUAL_CPC`, `TARGET_CPA`, `TARGET_ROAS`, `MAXIMIZE_CONVERSIONS`, `MAXIMIZE_CONVERSION_VALUE`, `MAXIMIZE_CLICKS` |
+| `budget_amount_micros` | Si | Budget giornaliero in micros (es. `10000000` = $10) |
+| `start_date` | No | Data inizio YYYY-MM-DD |
+| `end_date` | No | Data fine YYYY-MM-DD |
+| `target_cpa_micros` | No | CPA target in micros (per TARGET_CPA) |
+| `target_roas` | No | ROAS target (per TARGET_ROAS) |
 
 ---
 
 #### `gads_update_campaign`
-Update campaign settings (name, start/end dates).
+Aggiornamento impostazioni campagna (nome, date inizio/fine).
 
-| Parameter | Required | Description |
-|-----------|----------|-------------|
-| `customer_id` | Yes | Google Ads customer ID |
-| `campaign_id` | Yes | Campaign ID to update |
-| `name` | No | New campaign name |
-| `start_date` | No | New start date YYYY-MM-DD |
-| `end_date` | No | New end date YYYY-MM-DD |
+| Parametro | Obbligatorio | Descrizione |
+|-----------|-------------|-------------|
+| `customer_id` | Si | ID cliente Google Ads |
+| `campaign_id` | Si | ID campagna da aggiornare |
+| `name` | No | Nuovo nome campagna |
+| `start_date` | No | Nuova data inizio YYYY-MM-DD |
+| `end_date` | No | Nuova data fine YYYY-MM-DD |
 
 ---
 
 #### `gads_set_campaign_status`
-Change a campaign's status (enable, pause, or remove).
+Modifica stato campagna (attiva, pausa o rimozione).
 
-| Parameter | Required | Description |
-|-----------|----------|-------------|
-| `customer_id` | Yes | Google Ads customer ID |
-| `campaign_id` | Yes | Campaign ID |
-| `status` | Yes | `enable`, `pause`, or `remove` |
+| Parametro | Obbligatorio | Descrizione |
+|-----------|-------------|-------------|
+| `customer_id` | Si | ID cliente Google Ads |
+| `campaign_id` | Si | ID campagna |
+| `status` | Si | `enable`, `pause` o `remove` |
 
 ---
 
 #### `gads_update_budget`
-Update a campaign's daily budget.
+Aggiornamento budget giornaliero campagna.
 
-| Parameter | Required | Description |
-|-----------|----------|-------------|
-| `customer_id` | Yes | Google Ads customer ID |
-| `budget_id` | Yes | Budget resource ID |
-| `amount_micros` | Yes | New daily budget in micros |
+| Parametro | Obbligatorio | Descrizione |
+|-----------|-------------|-------------|
+| `customer_id` | Si | ID cliente Google Ads |
+| `budget_id` | Si | ID risorsa budget |
+| `amount_micros` | Si | Nuovo budget giornaliero in micros |
 
 ---
 
 #### `gads_set_bidding_strategy`
-Set or change a campaign's bidding strategy.
+Impostazione o modifica strategia di offerta campagna.
 
-| Parameter | Required | Description |
-|-----------|----------|-------------|
-| `customer_id` | Yes | Google Ads customer ID |
-| `campaign_id` | Yes | Campaign ID |
-| `strategy_type` | Yes | `MANUAL_CPC`, `TARGET_CPA`, `TARGET_ROAS`, `MAXIMIZE_CONVERSIONS`, `MAXIMIZE_CONVERSION_VALUE`, `MAXIMIZE_CLICKS` |
-| `target_cpa_micros` | No | Target CPA in micros |
-| `target_roas` | No | Target ROAS |
+| Parametro | Obbligatorio | Descrizione |
+|-----------|-------------|-------------|
+| `customer_id` | Si | ID cliente Google Ads |
+| `campaign_id` | Si | ID campagna |
+| `strategy_type` | Si | `MANUAL_CPC`, `TARGET_CPA`, `TARGET_ROAS`, `MAXIMIZE_CONVERSIONS`, `MAXIMIZE_CONVERSION_VALUE`, `MAXIMIZE_CLICKS` |
+| `target_cpa_micros` | No | CPA target in micros |
+| `target_roas` | No | ROAS target |
 
 ---
 
-### Ad Group & Ad Management
+### Gestione Gruppi Annunci e Annunci
 
 #### `gads_create_ad_group`
-Create a new ad group in a campaign.
+Creazione nuovo gruppo annunci in una campagna.
 
-| Parameter | Required | Description |
-|-----------|----------|-------------|
-| `customer_id` | Yes | Google Ads customer ID |
-| `campaign_id` | Yes | Parent campaign ID |
-| `name` | Yes | Ad group name |
-| `ad_group_type` | Yes | `SEARCH_STANDARD`, `DISPLAY_STANDARD`, `SHOPPING_PRODUCT`, `VIDEO_RESPONSIVE` |
-| `cpc_bid_micros` | No | Default CPC bid in micros |
+| Parametro | Obbligatorio | Descrizione |
+|-----------|-------------|-------------|
+| `customer_id` | Si | ID cliente Google Ads |
+| `campaign_id` | Si | ID campagna padre |
+| `name` | Si | Nome gruppo annunci |
+| `ad_group_type` | Si | `SEARCH_STANDARD`, `DISPLAY_STANDARD`, `SHOPPING_PRODUCT`, `VIDEO_RESPONSIVE` |
+| `cpc_bid_micros` | No | Offerta CPC predefinita in micros |
 
 ---
 
 #### `gads_set_ad_group_status`
-Change an ad group's status (enable, pause, or remove).
+Modifica stato gruppo annunci (attiva, pausa o rimozione).
 
-| Parameter | Required | Description |
-|-----------|----------|-------------|
-| `customer_id` | Yes | Google Ads customer ID |
-| `ad_group_id` | Yes | Ad group ID |
-| `status` | Yes | `enable`, `pause`, or `remove` |
+| Parametro | Obbligatorio | Descrizione |
+|-----------|-------------|-------------|
+| `customer_id` | Si | ID cliente Google Ads |
+| `ad_group_id` | Si | ID gruppo annunci |
+| `status` | Si | `enable`, `pause` o `remove` |
 
 ---
 
 #### `gads_set_ad_status`
-Change an ad's status (enable, pause, or remove).
+Modifica stato annuncio (attiva, pausa o rimozione).
 
-| Parameter | Required | Description |
-|-----------|----------|-------------|
-| `customer_id` | Yes | Google Ads customer ID |
-| `ad_group_id` | Yes | Ad group ID containing the ad |
-| `ad_id` | Yes | Ad ID |
-| `status` | Yes | `enable`, `pause`, or `remove` |
+| Parametro | Obbligatorio | Descrizione |
+|-----------|-------------|-------------|
+| `customer_id` | Si | ID cliente Google Ads |
+| `ad_group_id` | Si | ID gruppo annunci contenente l'annuncio |
+| `ad_id` | Si | ID annuncio |
+| `status` | Si | `enable`, `pause` o `remove` |
 
 ---
 
 #### `gads_create_responsive_search_ad`
-Create a Responsive Search Ad (RSA) in an ad group.
+Creazione Annuncio Adattabile della Rete di Ricerca (RSA) in un gruppo annunci.
 
-| Parameter | Required | Description |
-|-----------|----------|-------------|
-| `customer_id` | Yes | Google Ads customer ID |
-| `ad_group_id` | Yes | Target ad group ID |
-| `headlines` | No | List of headlines (3-15, max 30 chars each) |
-| `descriptions` | No | List of descriptions (2-4, max 90 chars each) |
-| `final_urls` | No | Landing page URLs |
-| `path1` | No | Display URL path 1 (max 15 chars) |
-| `path2` | No | Display URL path 2 (max 15 chars) |
+| Parametro | Obbligatorio | Descrizione |
+|-----------|-------------|-------------|
+| `customer_id` | Si | ID cliente Google Ads |
+| `ad_group_id` | Si | ID gruppo annunci target |
+| `headlines` | No | Lista titoli (3-15, max 30 caratteri ciascuno) |
+| `descriptions` | No | Lista descrizioni (2-4, max 90 caratteri ciascuna) |
+| `final_urls` | No | URL pagina di destinazione |
+| `path1` | No | Percorso URL visualizzato 1 (max 15 caratteri) |
+| `path2` | No | Percorso URL visualizzato 2 (max 15 caratteri) |
 
 ---
 
 #### `gads_create_ad_extension`
-Create an ad extension (sitelink, callout, call, or structured snippet).
+Creazione estensione annuncio (sitelink, callout, chiamata o snippet strutturato).
 
-| Parameter | Required | Description |
-|-----------|----------|-------------|
-| `customer_id` | Yes | Google Ads customer ID |
-| `campaign_id` | Yes | Campaign to attach extension to |
-| `extension_type` | Yes | `SITELINK`, `CALLOUT`, `CALL`, `STRUCTURED_SNIPPET` |
-| `link_text` | No | Sitelink text |
-| `final_urls` | No | Sitelink URLs |
-| `description1` | No | Sitelink description line 1 |
-| `description2` | No | Sitelink description line 2 |
-| `callout_text` | No | Callout text |
-| `phone_number` | No | Call extension phone number |
-| `country_code` | No | Phone country code |
-| `snippet_header` | No | Structured snippet header |
-| `snippet_values` | No | Structured snippet values |
+| Parametro | Obbligatorio | Descrizione |
+|-----------|-------------|-------------|
+| `customer_id` | Si | ID cliente Google Ads |
+| `campaign_id` | Si | Campagna a cui collegare l'estensione |
+| `extension_type` | Si | `SITELINK`, `CALLOUT`, `CALL`, `STRUCTURED_SNIPPET` |
+| `link_text` | No | Testo sitelink |
+| `final_urls` | No | URL sitelink |
+| `description1` | No | Descrizione sitelink riga 1 |
+| `description2` | No | Descrizione sitelink riga 2 |
+| `callout_text` | No | Testo callout |
+| `phone_number` | No | Numero telefono estensione chiamata |
+| `country_code` | No | Prefisso internazionale telefono |
+| `snippet_header` | No | Intestazione snippet strutturato |
+| `snippet_values` | No | Valori snippet strutturato |
 
 ---
 
-### Keywords
+### Keyword
 
 #### `gads_add_keywords`
-Add positive keywords to an ad group.
+Aggiunta keyword positive a un gruppo annunci.
 
-| Parameter | Required | Description |
-|-----------|----------|-------------|
-| `customer_id` | Yes | Google Ads customer ID |
-| `ad_group_id` | Yes | Target ad group ID |
-| `keywords` | No | List of keyword strings |
-| `match_type` | No | `exact`, `phrase`, or `broad` |
-| `cpc_bid_micros` | No | CPC bid in micros |
+| Parametro | Obbligatorio | Descrizione |
+|-----------|-------------|-------------|
+| `customer_id` | Si | ID cliente Google Ads |
+| `ad_group_id` | Si | ID gruppo annunci target |
+| `keywords` | No | Lista stringhe keyword |
+| `match_type` | No | `exact`, `phrase` o `broad` |
+| `cpc_bid_micros` | No | Offerta CPC in micros |
 
 ---
 
 #### `gads_update_keyword`
-Update a keyword's bid or status.
+Aggiornamento offerta o stato di una keyword.
 
-| Parameter | Required | Description |
-|-----------|----------|-------------|
-| `customer_id` | Yes | Google Ads customer ID |
-| `ad_group_id` | Yes | Ad group ID |
-| `criterion_id` | Yes | Keyword criterion ID |
-| `cpc_bid_micros` | No | New CPC bid in micros |
-| `status` | No | `enable`, `pause`, or `remove` |
+| Parametro | Obbligatorio | Descrizione |
+|-----------|-------------|-------------|
+| `customer_id` | Si | ID cliente Google Ads |
+| `ad_group_id` | Si | ID gruppo annunci |
+| `criterion_id` | Si | ID criterio keyword |
+| `cpc_bid_micros` | No | Nuova offerta CPC in micros |
+| `status` | No | `enable`, `pause` o `remove` |
 
 ---
 
 #### `gads_add_negative_keywords`
-Add negative keywords to a campaign or ad group.
+Aggiunta keyword negative a campagna o gruppo annunci.
 
-| Parameter | Required | Description |
-|-----------|----------|-------------|
-| `customer_id` | Yes | Google Ads customer ID |
-| `level` | Yes | `campaign` or `ad_group` |
-| `campaign_id` | No | Campaign ID (required if level=campaign) |
-| `ad_group_id` | No | Ad group ID (required if level=ad_group) |
-| `keywords` | No | List of negative keyword strings |
-| `match_type` | No | `exact`, `phrase`, or `broad` |
+| Parametro | Obbligatorio | Descrizione |
+|-----------|-------------|-------------|
+| `customer_id` | Si | ID cliente Google Ads |
+| `level` | Si | `campaign` o `ad_group` |
+| `campaign_id` | No | ID campagna (obbligatorio se level=campaign) |
+| `ad_group_id` | No | ID gruppo annunci (obbligatorio se level=ad_group) |
+| `keywords` | No | Lista stringhe keyword negative |
+| `match_type` | No | `exact`, `phrase` o `broad` |
 
 ---
 
-### Ad Creation (Advanced)
+### Creazione Annunci (Avanzata)
 
 #### `gads_create_responsive_display_ad`
-Create a Responsive Display Ad in an ad group.
+Creazione Annuncio Display Responsive in un gruppo annunci.
 
-| Parameter | Required | Description |
-|-----------|----------|-------------|
-| `customer_id` | Yes | Google Ads customer ID |
-| `ad_group_id` | Yes | Target ad group ID |
-| `marketing_image_asset_ids` | No | Marketing image asset IDs |
-| `headlines` | No | Short headlines (max 30 chars) |
-| `long_headline` | No | Long headline (max 90 chars) |
-| `descriptions` | No | Descriptions (max 90 chars) |
-| `business_name` | No | Business name (max 25 chars) |
-| `final_urls` | No | Landing page URLs |
-| `logo_asset_ids` | No | Logo asset IDs |
-| `square_image_asset_ids` | No | Square marketing image asset IDs |
+| Parametro | Obbligatorio | Descrizione |
+|-----------|-------------|-------------|
+| `customer_id` | Si | ID cliente Google Ads |
+| `ad_group_id` | Si | ID gruppo annunci target |
+| `marketing_image_asset_ids` | No | ID asset immagini marketing |
+| `headlines` | No | Titoli brevi (max 30 caratteri) |
+| `long_headline` | No | Titolo lungo (max 90 caratteri) |
+| `descriptions` | No | Descrizioni (max 90 caratteri) |
+| `business_name` | No | Nome attivita (max 25 caratteri) |
+| `final_urls` | No | URL pagina di destinazione |
+| `logo_asset_ids` | No | ID asset logo |
+| `square_image_asset_ids` | No | ID asset immagini quadrate |
 
 ---
 
 #### `gads_create_demand_gen_ad`
-Create a Demand Gen multi-asset ad.
+Creazione annuncio Demand Gen multi-asset.
 
-| Parameter | Required | Description |
-|-----------|----------|-------------|
-| `customer_id` | Yes | Google Ads customer ID |
-| `ad_group_id` | Yes | Target ad group ID |
-| `headlines` | No | Headlines |
-| `descriptions` | No | Descriptions |
-| `marketing_image_asset_ids` | No | Marketing image asset IDs |
-| `logo_asset_id` | No | Logo asset ID |
-| `business_name` | No | Business name |
-| `final_urls` | No | Landing page URLs |
-| `call_to_action` | No | CTA type |
+| Parametro | Obbligatorio | Descrizione |
+|-----------|-------------|-------------|
+| `customer_id` | Si | ID cliente Google Ads |
+| `ad_group_id` | Si | ID gruppo annunci target |
+| `headlines` | No | Titoli |
+| `descriptions` | No | Descrizioni |
+| `marketing_image_asset_ids` | No | ID asset immagini marketing |
+| `logo_asset_id` | No | ID asset logo |
+| `business_name` | No | Nome attivita |
+| `final_urls` | No | URL pagina di destinazione |
+| `call_to_action` | No | Tipo CTA |
 
 ---
 
 #### `gads_create_video_ad`
-Create a video ad in an ad group.
+Creazione annuncio video in un gruppo annunci.
 
-| Parameter | Required | Description |
-|-----------|----------|-------------|
-| `customer_id` | Yes | Google Ads customer ID |
-| `ad_group_id` | Yes | Target ad group ID |
-| `video_asset_id` | Yes | YouTube video asset ID |
-| `ad_format` | Yes | `IN_STREAM_SKIPPABLE`, `IN_STREAM_NON_SKIPPABLE`, `BUMPER`, `VIDEO_RESPONSIVE` |
-| `headline` | No | Ad headline |
-| `description` | No | Ad description |
-| `final_url` | No | Landing page URL |
-| `display_url` | No | Display URL |
-| `companion_banner_asset_id` | No | Companion banner asset ID |
+| Parametro | Obbligatorio | Descrizione |
+|-----------|-------------|-------------|
+| `customer_id` | Si | ID cliente Google Ads |
+| `ad_group_id` | Si | ID gruppo annunci target |
+| `video_asset_id` | Si | ID asset video YouTube |
+| `ad_format` | Si | `IN_STREAM_SKIPPABLE`, `IN_STREAM_NON_SKIPPABLE`, `BUMPER`, `VIDEO_RESPONSIVE` |
+| `headline` | No | Titolo annuncio |
+| `description` | No | Descrizione annuncio |
+| `final_url` | No | URL pagina di destinazione |
+| `display_url` | No | URL visualizzato |
+| `companion_banner_asset_id` | No | ID asset banner companion |
 
 ---
 
 ### Targeting
 
 #### `gads_set_location_targeting`
-Set location targeting for a campaign.
+Impostazione targeting geografico per una campagna.
 
-| Parameter | Required | Description |
-|-----------|----------|-------------|
-| `customer_id` | Yes | Google Ads customer ID |
-| `campaign_id` | Yes | Campaign ID |
-| `location_ids` | No | Google Geo Target constant IDs |
-| `exclude` | No | Exclude locations instead of targeting |
+| Parametro | Obbligatorio | Descrizione |
+|-----------|-------------|-------------|
+| `customer_id` | Si | ID cliente Google Ads |
+| `campaign_id` | Si | ID campagna |
+| `location_ids` | No | ID costanti target geografici Google |
+| `exclude` | No | Escludi localita invece di targetizzarle |
 
 ---
 
 #### `gads_set_language_targeting`
-Set language targeting for a campaign.
+Impostazione targeting per lingua per una campagna.
 
-| Parameter | Required | Description |
-|-----------|----------|-------------|
-| `customer_id` | Yes | Google Ads customer ID |
-| `campaign_id` | Yes | Campaign ID |
-| `language_ids` | No | Language criterion IDs |
+| Parametro | Obbligatorio | Descrizione |
+|-----------|-------------|-------------|
+| `customer_id` | Si | ID cliente Google Ads |
+| `campaign_id` | Si | ID campagna |
+| `language_ids` | No | ID criteri lingua |
 
 ---
 
 #### `gads_set_device_targeting`
-Set device bid adjustment for a campaign.
+Impostazione modificatore offerta per dispositivo per una campagna.
 
-| Parameter | Required | Description |
-|-----------|----------|-------------|
-| `customer_id` | Yes | Google Ads customer ID |
-| `campaign_id` | Yes | Campaign ID |
-| `device` | Yes | `MOBILE`, `DESKTOP`, or `TABLET` |
-| `bid_modifier` | Yes | Bid modifier (e.g. `1.2` = +20%, `0` = exclude) |
+| Parametro | Obbligatorio | Descrizione |
+|-----------|-------------|-------------|
+| `customer_id` | Si | ID cliente Google Ads |
+| `campaign_id` | Si | ID campagna |
+| `device` | Si | `MOBILE`, `DESKTOP` o `TABLET` |
+| `bid_modifier` | Si | Modificatore offerta (es. `1.2` = +20%, `0` = escludi) |
 
 ---
 
 #### `gads_set_demographic_targeting`
-Set demographic targeting for a campaign.
+Impostazione targeting demografico per una campagna.
 
-| Parameter | Required | Description |
-|-----------|----------|-------------|
-| `customer_id` | Yes | Google Ads customer ID |
-| `campaign_id` | Yes | Campaign ID |
-| `dimension` | Yes | `AGE`, `GENDER`, `PARENTAL_STATUS`, or `INCOME` |
-| `values` | No | Target values for the dimension |
-| `bid_modifier` | No | Bid modifier |
+| Parametro | Obbligatorio | Descrizione |
+|-----------|-------------|-------------|
+| `customer_id` | Si | ID cliente Google Ads |
+| `campaign_id` | Si | ID campagna |
+| `dimension` | Si | `AGE`, `GENDER`, `PARENTAL_STATUS` o `INCOME` |
+| `values` | No | Valori target per la dimensione |
+| `bid_modifier` | No | Modificatore offerta |
 
 ---
 
 #### `gads_create_audience_segment`
-Add an audience segment to a campaign.
+Aggiunta segmento di pubblico a una campagna.
 
-| Parameter | Required | Description |
-|-----------|----------|-------------|
-| `customer_id` | Yes | Google Ads customer ID |
-| `campaign_id` | Yes | Campaign ID |
-| `audience_type` | Yes | `IN_MARKET`, `AFFINITY`, `CUSTOM_INTENT`, `REMARKETING` |
-| `audience_id` | Yes | Audience segment ID |
-| `bid_modifier` | No | Bid modifier |
+| Parametro | Obbligatorio | Descrizione |
+|-----------|-------------|-------------|
+| `customer_id` | Si | ID cliente Google Ads |
+| `campaign_id` | Si | ID campagna |
+| `audience_type` | Si | `IN_MARKET`, `AFFINITY`, `CUSTOM_INTENT`, `REMARKETING` |
+| `audience_id` | Si | ID segmento di pubblico |
+| `bid_modifier` | No | Modificatore offerta |
 
 ---
 
-### Assets & Shopping
+### Asset e Shopping
 
 #### `gads_create_asset`
-Create a reusable asset (text, image, video, or CTA).
+Creazione asset riutilizzabile (testo, immagine, video o CTA).
 
-| Parameter | Required | Description |
-|-----------|----------|-------------|
-| `customer_id` | Yes | Google Ads customer ID |
-| `asset_type` | Yes | `TEXT`, `IMAGE`, `YOUTUBE_VIDEO`, `MEDIA_BUNDLE`, `CALL_TO_ACTION` |
-| `name` | Yes | Asset name |
-| `text_content` | No | Text content (for TEXT type) |
-| `image_url` | No | Image URL (for IMAGE type) |
-| `youtube_video_id` | No | YouTube video ID (for YOUTUBE_VIDEO type) |
-| `call_to_action_type` | No | CTA type (for CALL_TO_ACTION type) |
+| Parametro | Obbligatorio | Descrizione |
+|-----------|-------------|-------------|
+| `customer_id` | Si | ID cliente Google Ads |
+| `asset_type` | Si | `TEXT`, `IMAGE`, `YOUTUBE_VIDEO`, `MEDIA_BUNDLE`, `CALL_TO_ACTION` |
+| `name` | Si | Nome asset |
+| `text_content` | No | Contenuto testo (per tipo TEXT) |
+| `image_url` | No | URL immagine (per tipo IMAGE) |
+| `youtube_video_id` | No | ID video YouTube (per tipo YOUTUBE_VIDEO) |
+| `call_to_action_type` | No | Tipo CTA (per tipo CALL_TO_ACTION) |
 
 ---
 
 #### `gads_create_asset_group`
-Create an asset group for a Performance Max or Demand Gen campaign.
+Creazione gruppo di asset per campagna Performance Max o Demand Gen.
 
-| Parameter | Required | Description |
-|-----------|----------|-------------|
-| `customer_id` | Yes | Google Ads customer ID |
-| `campaign_id` | Yes | PMax/DG campaign ID |
-| `name` | Yes | Asset group name |
-| `final_urls` | No | Landing page URLs |
-| `final_mobile_urls` | No | Mobile landing page URLs |
-| `path1` | No | Display URL path 1 |
-| `path2` | No | Display URL path 2 |
+| Parametro | Obbligatorio | Descrizione |
+|-----------|-------------|-------------|
+| `customer_id` | Si | ID cliente Google Ads |
+| `campaign_id` | Si | ID campagna PMax/DG |
+| `name` | Si | Nome gruppo di asset |
+| `final_urls` | No | URL pagina di destinazione |
+| `final_mobile_urls` | No | URL pagina di destinazione mobile |
+| `path1` | No | Percorso URL visualizzato 1 |
+| `path2` | No | Percorso URL visualizzato 2 |
 
 ---
 
 #### `gads_add_asset_group_assets`
-Link assets to an asset group (for PMax/DG campaigns).
+Collegamento asset a un gruppo di asset (per campagne PMax/DG).
 
-| Parameter | Required | Description |
-|-----------|----------|-------------|
-| `customer_id` | Yes | Google Ads customer ID |
-| `asset_group_id` | Yes | Asset group ID |
-| `asset_ids` | No | Asset IDs to link |
-| `field_types` | No | Asset field types (`HEADLINE`, `DESCRIPTION`, `MARKETING_IMAGE`, `LOGO`, etc.) |
+| Parametro | Obbligatorio | Descrizione |
+|-----------|-------------|-------------|
+| `customer_id` | Si | ID cliente Google Ads |
+| `asset_group_id` | Si | ID gruppo di asset |
+| `asset_ids` | No | ID asset da collegare |
+| `field_types` | No | Tipi campo asset (`HEADLINE`, `DESCRIPTION`, `MARKETING_IMAGE`, `LOGO`, ecc.) |
 
 ---
 
 #### `gads_set_listing_group_filter`
-Set a listing group filter for a PMax or Shopping asset group.
+Impostazione filtro gruppo schede per gruppo asset PMax o Shopping.
 
-| Parameter | Required | Description |
-|-----------|----------|-------------|
-| `customer_id` | Yes | Google Ads customer ID |
-| `asset_group_id` | Yes | Asset group ID |
-| `filter_type` | Yes | Filter type |
-| `dimension` | Yes | `BRAND`, `CATEGORY_L1`, `CATEGORY_L2`, `PRODUCT_TYPE_L1`, `PRODUCT_TYPE_L2`, `CUSTOM_LABEL_0`, `CUSTOM_LABEL_1`, `ITEM_ID`, `CONDITION` |
-| `value` | No | Dimension value |
-| `parent_filter_id` | No | Parent filter ID for subdivision |
+| Parametro | Obbligatorio | Descrizione |
+|-----------|-------------|-------------|
+| `customer_id` | Si | ID cliente Google Ads |
+| `asset_group_id` | Si | ID gruppo di asset |
+| `filter_type` | Si | Tipo filtro |
+| `dimension` | Si | `BRAND`, `CATEGORY_L1`, `CATEGORY_L2`, `PRODUCT_TYPE_L1`, `PRODUCT_TYPE_L2`, `CUSTOM_LABEL_0`, `CUSTOM_LABEL_1`, `ITEM_ID`, `CONDITION` |
+| `value` | No | Valore dimensione |
+| `parent_filter_id` | No | ID filtro padre per suddivisione |
 
 ---
 
 #### `gads_link_merchant_center`
-Link a Merchant Center account to a Shopping or PMax campaign.
+Collegamento account Merchant Center a campagna Shopping o PMax.
 
-| Parameter | Required | Description |
-|-----------|----------|-------------|
-| `customer_id` | Yes | Google Ads customer ID |
-| `campaign_id` | Yes | Campaign ID |
-| `merchant_id` | Yes | Merchant Center account ID |
-| `feed_label` | No | Feed label |
-| `sales_country` | No | Sales country code |
+| Parametro | Obbligatorio | Descrizione |
+|-----------|-------------|-------------|
+| `customer_id` | Si | ID cliente Google Ads |
+| `campaign_id` | Si | ID campagna |
+| `merchant_id` | Si | ID account Merchant Center |
+| `feed_label` | No | Etichetta feed |
+| `sales_country` | No | Codice paese vendita |
 
 ---
 
-### Conversions & Customer Lists
+### Conversioni e Liste Clienti
 
 #### `gads_upload_click_conversions`
-Upload an offline click conversion to Google Ads.
+Upload conversione click offline su Google Ads.
 
-| Parameter | Required | Description |
-|-----------|----------|-------------|
-| `customer_id` | Yes | Google Ads customer ID |
-| `conversion_action_id` | Yes | Conversion action resource ID |
-| `gclid` | Yes | Google Click ID |
-| `conversion_date_time` | Yes | Conversion datetime (YYYY-MM-DD HH:MM:SS+HH:MM) |
-| `conversion_value` | No | Conversion value |
-| `currency_code` | No | Currency code (e.g. `USD`, `EUR`) |
+| Parametro | Obbligatorio | Descrizione |
+|-----------|-------------|-------------|
+| `customer_id` | Si | ID cliente Google Ads |
+| `conversion_action_id` | Si | ID risorsa azione di conversione |
+| `gclid` | Si | Google Click ID |
+| `conversion_date_time` | Si | Data/ora conversione (YYYY-MM-DD HH:MM:SS+HH:MM) |
+| `conversion_value` | No | Valore conversione |
+| `currency_code` | No | Codice valuta (es. `USD`, `EUR`) |
 
 ---
 
 #### `gads_upload_customer_list`
-Upload members to a customer match list.
+Upload membri in una lista customer match.
 
-| Parameter | Required | Description |
-|-----------|----------|-------------|
-| `customer_id` | Yes | Google Ads customer ID |
-| `user_list_id` | Yes | User list resource ID |
-| `emails` | No | List of email addresses (SHA256 hashed) |
-| `phones` | No | List of phone numbers (SHA256 hashed) |
+| Parametro | Obbligatorio | Descrizione |
+|-----------|-------------|-------------|
+| `customer_id` | Si | ID cliente Google Ads |
+| `user_list_id` | Si | ID risorsa lista utenti |
+| `emails` | No | Lista indirizzi email (hash SHA256) |
+| `phones` | No | Lista numeri telefono (hash SHA256) |
 
 ---
 
 #### `gads_remove_customer_list_members`
-Remove members from a customer match list.
+Rimozione membri da una lista customer match.
 
-| Parameter | Required | Description |
-|-----------|----------|-------------|
-| `customer_id` | Yes | Google Ads customer ID |
-| `user_list_id` | Yes | User list resource ID |
-| `emails` | No | Email addresses to remove |
-| `phones` | No | Phone numbers to remove |
+| Parametro | Obbligatorio | Descrizione |
+|-----------|-------------|-------------|
+| `customer_id` | Si | ID cliente Google Ads |
+| `user_list_id` | Si | ID risorsa lista utenti |
+| `emails` | No | Indirizzi email da rimuovere |
+| `phones` | No | Numeri telefono da rimuovere |
 
 ---
 
-## Common Parameters
+## Parametri Comuni
 
-All read tools share these common parameters:
+Tutti i tool di lettura condividono questi parametri comuni:
 
-| Parameter | Default | Description |
+| Parametro | Default | Descrizione |
 |-----------|---------|-------------|
-| `customer_id` | — | Required. Accepts `1234567890` or `123-456-7890` format |
-| `limit` | 50 | Results per page (1-1000) |
-| `offset` | 0 | Pagination offset |
-| `response_format` | `markdown` | `markdown` for readable tables, `json` for structured data |
+| `customer_id` | — | Obbligatorio. Accetta formato `1234567890` o `123-456-7890` |
+| `limit` | 50 | Risultati per pagina (1-1000) |
+| `offset` | 0 | Offset paginazione |
+| `response_format` | `markdown` | `markdown` per tabelle leggibili, `json` per dati strutturati |
 
-Date range tools default to the **last 30 days** when `start_date` and `end_date` are omitted.
+I tool con intervallo date usano gli **ultimi 30 giorni** come default quando `start_date` e `end_date` non vengono specificati.
 
-## Currency Values
+## Valori Monetari
 
-All monetary values use **micros** (1 unit = 1,000,000 micros):
+Tutti i valori monetari usano i **micros** (1 unita = 1.000.000 micros):
 
-| Amount | Micros Value |
-|--------|-------------|
-| $1.00 | `1000000` |
-| $10.00 | `10000000` |
-| $50.00 | `50000000` |
-| $100.00 | `100000000` |
+| Importo | Valore Micros |
+|---------|--------------|
+| $1,00 | `1000000` |
+| $10,00 | `10000000` |
+| $50,00 | `50000000` |
+| $100,00 | `100000000` |

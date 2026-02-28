@@ -84,6 +84,24 @@ Un server MCP (Model Context Protocol) per la gestione completa di Google Ads tr
 - Credenziali OAuth2 (client ID, client secret, refresh token)
 - Token sviluppatore Google Ads
 
+## Dipendenze
+
+| Pacchetto | Versione | Descrizione |
+|-----------|----------|-------------|
+| `mcp` | >= 1.0.0 | Framework Model Context Protocol (FastMCP) |
+| `google-ads` | >= 25.0.0 | Client ufficiale Google Ads API |
+| `pydantic` | >= 2.0.0 | Validazione dati e modelli input |
+| `httpx` | >= 0.27.0 | Client HTTP asincrono |
+| `python-dotenv` | >= 1.0.0 | Caricamento variabili d'ambiente da file `.env` |
+
+### Dipendenze di sviluppo (opzionali)
+
+| Pacchetto | Versione | Descrizione |
+|-----------|----------|-------------|
+| `pytest` | >= 8.0.0 | Framework di test |
+| `pytest-asyncio` | >= 0.23.0 | Supporto test asincroni |
+| `pytest-cov` | >= 4.0.0 | Copertura codice |
+
 ## Installazione
 
 ```bash
@@ -96,6 +114,11 @@ uv sync
 
 # Oppure con pip
 pip install -e .
+
+# Con dipendenze di sviluppo
+uv sync --extra dev
+# oppure
+pip install -e ".[dev]"
 ```
 
 ## Configurazione
