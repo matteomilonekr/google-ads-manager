@@ -94,11 +94,11 @@ class GoogleAdsClientWrapper:
         self, customer_id: str, query: str, page_size: int
     ) -> list[Any]:
         service = self.get_service("GoogleAdsService")
-        response = service.search(
-            customer_id=customer_id,
-            query=query,
-            page_size=page_size,
-        )
+        request = self.client.get_type("SearchGoogleAdsRequest")
+        request.customer_id = customer_id
+        request.query = query
+        request.page_size = page_size
+        response = service.search(request=request)
         return list(response)
 
     def _do_mutate(
